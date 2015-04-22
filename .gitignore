@@ -1,6 +1,31 @@
-trunk/[Tt]emp
-# User-specific files
+# =============== #
+# Unity generated #
+# =============== #
+trunk/[Tt]emp/
+trunk/[Ll]ibrary/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+trunk/[Ee]xportedObj/
+trunk/[Oo]bj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
 *.suo
+/*.sln
 *.user
-*.sln.docstates
-trunk/obj
+*.unityproj
+*.booproj
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
