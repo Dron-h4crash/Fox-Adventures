@@ -158,19 +158,29 @@ public class HeroController : MonoBehaviour
 
     void Attack(bool on)
     {
-        _anim.SetBool("Attack", on);
-        if (!on) return;
+		if (!on)
+		{
+			_anim.SetBool("Attack", on);
+			return;
+		}
+		StartCoroutine(WeaponAnimate());
 
-        switch (WeaponManager.Instance.HeroWeapon) 
-        {
-            case WeaponManager.HeroWeapons.Dubinka: BroadcastMessage("DubinkaHit"); break;
-                //if (Hit != null) Hit(); break;
-            //case WeaponManager.HeroWeapons.Pistol: if (Fire != null) Fire(HeroBulletSpawn.position, _isFacingRight? WeaponManager.FireDirection.Right: WeaponManager.FireDirection.Left); break;
-            case WeaponManager.HeroWeapons.Butulka1: if (Fire1 != null) Fire1(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left,1); break;
-            case WeaponManager.HeroWeapons.Butulka2: if (Fire2 != null) Fire2(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left,2); break;
-            case WeaponManager.HeroWeapons.Butulka3: if (Fire3 != null) Fire3(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left,3); break;
-        }
     }
+
+	protected IEnumerator WeaponAnimate()
+	{
+		_anim.SetBool("Attack", true);
+		yield return new WaitForSeconds(0.3f);
+		switch (WeaponManager.Instance.HeroWeapon)
+		{
+			case WeaponManager.HeroWeapons.Dubinka: BroadcastMessage("DubinkaHit"); break;
+			//if (Hit != null) Hit(); break;
+			//case WeaponManager.HeroWeapons.Pistol: if (Fire != null) Fire(HeroBulletSpawn.position, _isFacingRight? WeaponManager.FireDirection.Right: WeaponManager.FireDirection.Left); break;
+			case WeaponManager.HeroWeapons.Butulka1: if (Fire1 != null) Fire1(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 1); break;
+			case WeaponManager.HeroWeapons.Butulka2: if (Fire2 != null) Fire2(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 2); break;
+			case WeaponManager.HeroWeapons.Butulka3: if (Fire3 != null) Fire3(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 3); break;
+		}
+	}
 
     private void FixedUpdate()
     {
@@ -199,19 +209,26 @@ public class HeroController : MonoBehaviour
     }
 
     public void Die()
-    {
-        _anim.SetBool("Die", true);
-        Application.LoadLevel("Game Over");
-    }
+	{
+		StartCoroutine(DieAnimate());
+	}
+
+	protected IEnumerator DieAnimate()
+	{
+		
+		_anim.SetBool("Die", true);
+		yield return new WaitForSeconds(0.5f);
+		Application.LoadLevel("Game Over");
+	}
 
     public void HpChangedMessage(float hp)
     {
         if (HpChanged != null) HpChanged(hp);
-        if (hp == 0)
-        {
-            _anim.SetBool("Die", true);
-            Application.LoadLevel("Game Over");
-        }
+		//if (hp == 0)
+		//{
+		//	_anim.SetBool("Die", true);
+		//	Application.LoadLevel("Game Over");
+		//}
     }
 
     public void DamageReceived()
