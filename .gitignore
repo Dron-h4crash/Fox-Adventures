@@ -1,1 +1,5 @@
 trunk/[Tt]emp
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
