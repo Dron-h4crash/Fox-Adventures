@@ -72,9 +72,9 @@ public class EnemyController : MonoBehaviour
 
     protected IEnumerator DieAnimate() 
     {
-        rigidbody2D.isKinematic = true;
+        //rigidbody2D.isKinematic = true;
         _anim.SetTrigger("Die");
-        yield return new WaitForSeconds(0.33f);
+        yield return new WaitForSeconds(0.3f);
         gameObject.SetActive(false);
     }
 
