@@ -52,7 +52,7 @@ public class ButulkaWeaponManager : MonoBehaviour {
 	{
 		//rigidbody2D.isKinematic = true;
 		_anim.SetBool("Die",true);
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.3f);
 		//gameObject.SetActive(false);
 		_anim.SetBool("Die", false);
 		gameObject.renderer.enabled = false;
