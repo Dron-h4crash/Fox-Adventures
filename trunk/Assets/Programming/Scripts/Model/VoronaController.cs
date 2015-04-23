@@ -21,4 +21,10 @@ public class VoronaController : EnemyController
             yield return new WaitForEndOfFrame();
         }
     }
+
+	protected override void OnCollisionEnter2D(Collision2D coll)
+	{
+
+		rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x == 0 ? 0.5f : -rigidbody2D.velocity.x, -rigidbody2D.velocity.y);
+	}
 }
