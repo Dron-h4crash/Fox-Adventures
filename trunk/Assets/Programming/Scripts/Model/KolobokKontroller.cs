@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class KolobokKontroller : EnemyController
 {
@@ -13,9 +14,10 @@ public class KolobokKontroller : EnemyController
 	public List<string> TurnTags;
 	#endregion
 
-	//public static Action<Vector2, WeaponManager.FireDirection, int> Fire;
-
+    public static Action<Vector2, Vector2> Fire;
+    public Transform HeroBulletSpawn;
 	bool _attack;
+    private float _moveX;
 
 	protected override IEnumerator Moving()
 	{
@@ -23,8 +25,8 @@ public class KolobokKontroller : EnemyController
 		{
 			if (!_attack)
 			{
-				rigidbody2D.velocity = new Vector2(Random.Range(-1, 2) * SpeedX, 0f);
-				yield return new WaitForSeconds(Random.Range(0, 3f));
+				rigidbody2D.velocity = new Vector2(UnityEngine.Random.Range(-1, 2) * SpeedX, 0f);
+				yield return new WaitForSeconds(UnityEngine.Random.Range(0, 3f));
 			}
 			else yield return new WaitForEndOfFrame();
 		}
@@ -38,8 +40,8 @@ public class KolobokKontroller : EnemyController
 
 	protected override void FixedUpdate()
 	{
-		if (CloseToHero()) Attack();
-		else if (_attack) StopAttack();
+        if (CloseToHero() && !_attack) Attack();
+		
 		if (transform.position.x < LeftLimit.transform.position.x) rigidbody2D.velocity = new Vector2(SpeedX, 0f);
 		if (transform.position.x > RightLimit.transform.position.x) rigidbody2D.velocity = new Vector2(-SpeedX, 0f);
 		base.FixedUpdate();
@@ -52,9 +54,23 @@ public class KolobokKontroller : EnemyController
 	void Attack()
 	{
 		_attack = true;
-		rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
-		_anim.SetBool("Attack", true);
+        StartCoroutine(ButulkaBrosok());
+        //Fire(HeroBulletSpawn.position, rigidbody2D.velocity.x>0) ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left);
+        
+		
 	}
+
+
+    protected IEnumerator ButulkaBrosok()
+    {
+        _anim.SetBool("Attack", true);
+        rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+        yield return new WaitForSeconds(0.3f);
+        Fire(HeroBulletSpawn.position, _isFacingRight ? Vector2.right : new Vector2(-1, 0));
+        yield return new WaitForSeconds(2f);
+        StopAttack();
+    }
+
 	void StopAttack()
 	{
 		_attack = false;
