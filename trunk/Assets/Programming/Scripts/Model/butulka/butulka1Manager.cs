@@ -16,4 +16,5 @@ public class butulka1Manager : MonoBehaviour {
             other.gameObject.SendMessageUpwards("AddButulka"+type.ToString(), count);
         }
     }
+
 }
