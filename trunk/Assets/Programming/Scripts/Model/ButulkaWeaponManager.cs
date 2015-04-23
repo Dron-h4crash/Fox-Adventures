@@ -9,10 +9,12 @@ public class ButulkaWeaponManager : MonoBehaviour {
     static public List<ButulkaWeaponManager> Bullets = new List<ButulkaWeaponManager>();
     public ButulkaWeaponManager next;
 	protected Animator _anim;
+	public string EnemyTag;
 
     void Start()
     {
 		_anim = GetComponent<Animator>();
+		_anim.Play("vreschzButulka");
         if (Bullets.Count == 0)
         {
             next = this;
@@ -41,7 +43,7 @@ public class ButulkaWeaponManager : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
 		StartCoroutine(DieAnimate());
-        gameObject.renderer.enabled = false;
+		
     }
 
 
@@ -49,8 +51,10 @@ public class ButulkaWeaponManager : MonoBehaviour {
 	protected IEnumerator DieAnimate()
 	{
 		//rigidbody2D.isKinematic = true;
-		_anim.SetTrigger("Die");
+		_anim.SetBool("Die",true);
 		yield return new WaitForSeconds(0.5f);
-		gameObject.SetActive(false);
+		//gameObject.SetActive(false);
+		_anim.SetBool("Die", false);
+		gameObject.renderer.enabled = false;
 	}
 }
