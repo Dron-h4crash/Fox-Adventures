@@ -5,10 +5,10 @@ public class NewBehaviourScript : MonoBehaviour {
 
     public GUIStyle welcomeLabel; 
 
-    public GUISkin customSkin;    
-    public Rect playGameRect = new Rect(Screen.width/2-200,Screen.height/2-50,400,75);     
+    public GUISkin customSkin;
+	private Rect playGameRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 - Screen.height / 8, Screen.width / 2, Screen.height / 4);     
     //public Rect optionsRect;      
-	public Rect quitRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 + 50, 400, 75);        
+	private Rect quitRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 + Screen.height / 8, Screen.width / 2, Screen.height / 4);        
 
 	//private bool optionsMode = false;
     private bool menuMode = true;   //1

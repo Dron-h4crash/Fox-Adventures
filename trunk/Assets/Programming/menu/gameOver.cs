@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class gameOver : MonoBehaviour {
+public class GameOver : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public Rect playGameRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 50, 400, 75);
+	public Rect quitRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 + 50, 400, 75); 
+	public void OnGUI()
+	{
+		
+				if (GUI.Button(playGameRect, "Уровень 1"))
+				{
+					Application.LoadLevel("StartScene");
+				}
+				if (GUI.Button(quitRect, "Quit"))
+				{
+					Application.Quit();
+				}
+			
 	}
 }
