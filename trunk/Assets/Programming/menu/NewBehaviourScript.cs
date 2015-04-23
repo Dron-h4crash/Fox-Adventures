@@ -6,9 +6,9 @@ public class NewBehaviourScript : MonoBehaviour {
     public GUIStyle welcomeLabel; 
 
     public GUISkin customSkin;    
-    public Rect playGameRect;     
+    public Rect playGameRect = new Rect(Screen.width/2-200,Screen.height/2-50,400,75);     
     //public Rect optionsRect;      
-    public Rect quitRect;        
+	public Rect quitRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 + 50, 400, 75);        
 
 	//private bool optionsMode = false;
     private bool menuMode = true;   //1
@@ -51,7 +51,7 @@ public class NewBehaviourScript : MonoBehaviour {
                 if (!gameMode)
                 {              
                     //if (GUI.Button(playGameRect, "Play Game"))
-                    if (GUI.Button(new Rect(Screen.width/2-200,Screen.height/2-50,400,70), "Play Game"))
+					if (GUI.Button(playGameRect, "Play Game"))
                     {
                         menuMode = false;   
                         gameMode = true;    
@@ -61,7 +61,7 @@ public class NewBehaviourScript : MonoBehaviour {
                 }
                 else
                 {
-                    if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2 - 50, 400, 75), "Resume"))
+					if (GUI.Button(playGameRect, "Resume"))
                     {
                         //var _ml = GameObject.Find("HeroController").GetComponent(MouseLook);//4
                         //_ml.enabled = true; //4
@@ -75,7 +75,7 @@ public class NewBehaviourScript : MonoBehaviour {
                 //    optionsMode = true;
                 //}
 
-                if (GUI.Button(new Rect(Screen.width / 2 - 200, Screen.height / 2 + 50, 400, 75), "Quit"))
+                if (GUI.Button(quitRect, "Quit"))
                 {
                     Application.Quit();
                 }
