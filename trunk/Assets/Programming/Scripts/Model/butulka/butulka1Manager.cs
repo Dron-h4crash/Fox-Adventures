@@ -7,9 +7,10 @@ public class butulka1Manager : MonoBehaviour {
     public int type;
     public int count = 1;
 
-	//void Start () {
-
-	//	Physics.IgnoreCollision(gameObject.collider, other.gameObject.collider);
+	//void Start()
+	//{
+	//	var enemies = GameObject.FindWithTag("Enemy");
+	//	Physics.IgnoreCollision(gameObject.collider, enemies.collider);
 	//}
 
     void OnCollisionEnter2D(Collision2D other)
@@ -19,6 +20,10 @@ public class butulka1Manager : MonoBehaviour {
 			gameObject.renderer.enabled = false;
 			Destroy(gameObject);
 			other.gameObject.SendMessageUpwards("AddButulka" + type.ToString(), count);
+		}
+		else
+		{
+			Physics2D.IgnoreCollision(gameObject.collider2D, other.gameObject.collider2D);
 		}
     }
 
