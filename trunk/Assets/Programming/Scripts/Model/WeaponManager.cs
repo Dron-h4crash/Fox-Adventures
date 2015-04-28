@@ -6,7 +6,9 @@ public class WeaponManager : MonoBehaviour {
 
 	public static Action<HeroWeapons> WeaponChanged;
     public static Action<Vector2, Vector2> Fire;
-    public static Action<Vector2, Vector2, int> Fire1;
+    public static Action<Vector2, Vector2> Fire1;
+	public static Action<Vector2, Vector2> Fire2;
+	public static Action<Vector2, Vector2> Fire3;
     public static Action<int> AmmoChanged;
     public static Action<int> Ammo1Changed;
     public static Action<int> Ammo2Changed;
@@ -167,7 +169,7 @@ public class WeaponManager : MonoBehaviour {
                         case FireDirection.Right: d = Vector2.right; break;
                     }
 
-                    if (Fire1 != null) Fire1(firePoint, d, 1);
+                    if (Fire1 != null) Fire1(firePoint, d);
                     CurrentAmmo1--;
                     break;
                 }
@@ -182,7 +184,7 @@ public class WeaponManager : MonoBehaviour {
                         case FireDirection.Right: d = Vector2.right; break;
                     }
 
-                    if (Fire1 != null) Fire1(firePoint, d, 2);
+                    if (Fire2 != null) Fire2(firePoint, d);
                     CurrentAmmo2--;
                     break;
                 }
@@ -197,7 +199,7 @@ public class WeaponManager : MonoBehaviour {
                         case FireDirection.Right: d = Vector2.right; break;
                     }
 
-                    if (Fire1 != null) Fire1(firePoint, d, 3);
+                    if (Fire3 != null) Fire3(firePoint, d);
                     CurrentAmmo3--;
                     break;
                 }

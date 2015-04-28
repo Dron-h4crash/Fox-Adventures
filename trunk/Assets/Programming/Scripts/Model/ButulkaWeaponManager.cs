@@ -29,7 +29,7 @@ public class ButulkaWeaponManager : MonoBehaviour {
         gameObject.renderer.enabled = false;
     }
 
-    void Fire(Vector2 position, Vector2 direction, int type)
+    void Fire(Vector2 position, Vector2 direction)
     {
         rigidbody2D.isKinematic = true;
         transform.position = position;
