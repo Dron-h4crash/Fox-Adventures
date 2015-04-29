@@ -64,7 +64,7 @@ public class KolobokKontroller : EnemyController
     protected IEnumerator ButulkaBrosok()
     {
         _anim.SetBool("Attack", true);
-        rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+        //rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
         yield return new WaitForSeconds(0.3f);
         Fire(HeroBulletSpawn.position, _isFacingRight ? Vector2.right : new Vector2(-1, 0));
         yield return new WaitForSeconds(2f);

@@ -36,10 +36,14 @@ public class KrolikController : EnemyController
 
     protected override void FixedUpdate()
     {
-        if (CloseToHero()) Attack();
-        else if(_attack)StopAttack();
+        if (CloseToHero() && !_attack) Attack();
+        
         if (transform.position.x < LeftLimit.transform.position.x) rigidbody2D.velocity = new Vector2(SpeedX, 0f);
         if (transform.position.x > RightLimit.transform.position.x) rigidbody2D.velocity = new Vector2(-SpeedX, 0f);
+        if (Mathf.Abs(transform.position.x - MainHero.transform.position.x) < 2 && (Mathf.Abs(transform.position.y - MainHero.transform.position.y) < 0.3))
+        {
+            rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+        }
         base.FixedUpdate();
         _anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
     }
@@ -50,10 +54,21 @@ public class KrolikController : EnemyController
     void Attack()
     {
         _attack = true;
-        BroadcastMessage("DubinkaHit");
-        rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
-        _anim.SetBool("Attack", true);
+        StartCoroutine(DubinkaUdar());
+        //rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+        //_anim.SetBool("Attack", true);
     }
+
+    protected IEnumerator DubinkaUdar()
+    {
+        _anim.SetBool("Attack", true);
+        //rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+        rigidbody2D.velocity = new Vector2(0,0);
+        yield return new WaitForSeconds(0.33f);
+        BroadcastMessage("DubinkaHit");
+        StopAttack();
+    }
+
     void StopAttack()
     {
         _attack = false;
