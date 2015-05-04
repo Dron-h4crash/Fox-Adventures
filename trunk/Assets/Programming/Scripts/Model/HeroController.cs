@@ -243,11 +243,11 @@ public class HeroController : MonoBehaviour
 		//отодвинуть назад
 		if (_isFacingRight)
 		{
-			if (IsGrounded) rigidbody2D.AddForce(new Vector2(-0.5f, 0));
+			if (IsGrounded) rigidbody2D.AddForce(new Vector2(-1.5f, 0));
 		}
 		else
 		{
-			if (IsGrounded) rigidbody2D.AddForce(new Vector2(0.5f, 0));
+			if (IsGrounded) rigidbody2D.AddForce(new Vector2(1.5f, 0));
 		}
 		yield return new WaitForSeconds(0.1f);
 

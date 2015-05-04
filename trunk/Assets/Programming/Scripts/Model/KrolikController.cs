@@ -40,10 +40,13 @@ public class KrolikController : EnemyController
         
         if (transform.position.x < LeftLimit.transform.position.x) rigidbody2D.velocity = new Vector2(SpeedX, 0f);
         if (transform.position.x > RightLimit.transform.position.x) rigidbody2D.velocity = new Vector2(-SpeedX, 0f);
+		if(!_attack)
+		{
         if (Mathf.Abs(transform.position.x - MainHero.transform.position.x) < 2 && (Mathf.Abs(transform.position.y - MainHero.transform.position.y) < 0.3))
         {
             rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
         }
+		}
         base.FixedUpdate();
         _anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
     }
@@ -63,7 +66,7 @@ public class KrolikController : EnemyController
     {
         _anim.SetBool("Attack", true);
         //rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
-        rigidbody2D.velocity = new Vector2(0,0);
+		rigidbody2D.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.33f);
         BroadcastMessage("DubinkaHit");
         StopAttack();
