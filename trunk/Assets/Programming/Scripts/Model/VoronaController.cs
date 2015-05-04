@@ -34,7 +34,14 @@ public class VoronaController : EnemyController
 
 	protected override void OnCollisionEnter2D(Collision2D coll)
 	{
-        rigidbody2D.velocity = new Vector2(-rigidbody2D.velocity.x, 0f);
+		if (coll.gameObject.tag == "Butulka")
+		{
+			Physics2D.IgnoreCollision(gameObject.collider2D, coll.gameObject.collider2D);
+		}
+		else
+		{
+			rigidbody2D.velocity = coll.contacts[0].normal;
+		}
 		//rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x == 0 ? 0.5f : -rigidbody2D.velocity.x, -rigidbody2D.velocity.y);
 	}
 }

@@ -30,7 +30,9 @@ public class KrolikController : EnemyController
 
     protected override void OnCollisionEnter2D(Collision2D coll)
     {
-        if (TurnTags.Contains(coll.gameObject.tag)) rigidbody2D.velocity = new Vector2(-rigidbody2D.velocity.x, 0f);
+		if (TurnTags.Contains(coll.gameObject.tag)) rigidbody2D.velocity = new Vector2(-rigidbody2D.velocity.x, 0f);
+		
+
        // rigidbody2D.velocity = coll.contacts[0].normal; // сменить скорость на противоположную точке соприкосновения
     }
 
@@ -67,8 +69,9 @@ public class KrolikController : EnemyController
         _anim.SetBool("Attack", true);
         //rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
 		rigidbody2D.velocity = Vector2.zero;
-        yield return new WaitForSeconds(0.33f);
+        yield return new WaitForSeconds(0.1f);
         BroadcastMessage("DubinkaHit");
+		yield return new WaitForSeconds(0.33f);
         StopAttack();
     }
 
