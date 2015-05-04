@@ -37,7 +37,7 @@ public class HpView : MonoBehaviour
             HpImage.sprite = IconsDB.GetIcon("hp10");
         else if (hp <= 100)
             HpImage.sprite = IconsDB.GetIcon("hp11");
-        if (hp == 0)
+        if (hp <= 0)
         {
             HpImage.sprite = IconsDB.GetIcon("hp11");
         }
