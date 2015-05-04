@@ -233,8 +233,26 @@ public class HeroController : MonoBehaviour
 
     public void DamageReceived()
     {
-        _anim.SetTrigger("Damage");
+		StartCoroutine(DamageAnimate());
+       
     }
+
+	protected IEnumerator DamageAnimate()
+	{
+		_anim.SetTrigger("Damage");
+		//отодвинуть назад
+		if (_isFacingRight)
+		{
+			if (IsGrounded) rigidbody2D.AddForce(new Vector2(-0.5f, 0));
+		}
+		else
+		{
+			if (IsGrounded) rigidbody2D.AddForce(new Vector2(0.5f, 0));
+		}
+		yield return new WaitForSeconds(0.1f);
+
+
+	}
 
     public void AddButulka1(int count)
     {
