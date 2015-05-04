@@ -170,7 +170,7 @@ public class HeroController : MonoBehaviour
 	protected IEnumerator WeaponAnimate()
 	{
 		_anim.SetBool("Attack", true);
-		yield return new WaitForSeconds(0.3f);
+		if (IsGrounded)  yield return new WaitForSeconds(0.3f);
 		switch (WeaponManager.Instance.HeroWeapon)
 		{
 			case WeaponManager.HeroWeapons.Dubinka: BroadcastMessage("DubinkaHit"); break;
