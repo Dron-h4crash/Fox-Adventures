@@ -266,4 +266,30 @@ public class HeroController : MonoBehaviour
     {
         AddButulkaToWeapon(count,3);
     }
+
+	private bool moveKonv = false;
+
+	public void KoveyerMove(bool left)
+	{
+		Debug.Log("123");
+		if(!moveKonv)
+		MoveKonveier(left);
+		
+	}
+	protected void MoveKonveier(bool left)
+	{
+		moveKonv = true;
+		if (left)
+		{
+			rigidbody2D.AddForce(new Vector2(-300f, 80f));
+
+		}
+		else
+		{
+			rigidbody2D.AddForce(new Vector2(300f, 80f));
+
+		}
+		//yield return new WaitForSeconds(0.1f);
+		moveKonv = false;
+	}
 }
