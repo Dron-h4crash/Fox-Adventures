@@ -63,6 +63,15 @@ public class EnemyController : MonoBehaviour
 
     public virtual void DamageReceived()
     {
+        StartCoroutine(DamageAnimate());
+    }
+
+    protected IEnumerator DamageAnimate()
+    {
+        //rigidbody2D.isKinematic = true;
+        _anim.SetBool("Damage",true);
+        yield return new WaitForSeconds(0.3f);
+        _anim.SetBool("Damage", false);
     }
 
     public void Die()
