@@ -76,4 +76,15 @@ public class KolobokKontroller : EnemyController
 		_attack = false;
 		_anim.SetBool("Attack", false);
 	}
+
+    public void RealyDie()
+    {
+        StartCoroutine(DieAnimate());
+    }
+    protected IEnumerator DieAnimate()
+    {
+
+        yield return new WaitForSeconds(0.5f);
+        Application.LoadLevel("StartScene2");
+    }
 }
