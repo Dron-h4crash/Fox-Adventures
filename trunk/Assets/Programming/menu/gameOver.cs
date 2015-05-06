@@ -14,7 +14,7 @@ public class GameOver : MonoBehaviour
                 //{
                 //    Application.LoadLevel("StartScene");
                 //}
-				if (GUI.Button(quitRect, "Quit"))
+				if (GUI.Button(quitRect, "ВЫХОД"))
 				{
 					Application.Quit();
 				}
