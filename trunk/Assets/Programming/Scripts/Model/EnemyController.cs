@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour
     {
         //rigidbody2D.isKinematic = true;
         _anim.SetBool("Damage",true);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.15f);
         _anim.SetBool("Damage", false);
     }
 
