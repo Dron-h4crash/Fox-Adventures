@@ -85,6 +85,6 @@ public class KolobokKontroller : EnemyController
     {
 
         yield return new WaitForSeconds(0.5f);
-        Application.LoadLevel("StartScene2");
+		Application.LoadLevelAsync("StartScene2");
     }
 }
