@@ -43,7 +43,6 @@ public class kolobokButulkaMemeger : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
         StartCoroutine(DieAnimate());
-        Debug.Log("df");
 
     }
 
