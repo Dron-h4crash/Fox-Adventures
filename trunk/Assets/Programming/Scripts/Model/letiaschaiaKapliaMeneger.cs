@@ -30,7 +30,6 @@ public class letiaschaiaKapliaMeneger : MonoBehaviour {
 
     void Fire(Vector2 position)
     {
-        Debug.Log(position);
         _anim.Play("3");
         rigidbody2D.isKinematic = true;
         transform.position = position;
@@ -54,7 +53,7 @@ public class letiaschaiaKapliaMeneger : MonoBehaviour {
     protected IEnumerator DieAnimate()
     {
         _anim.SetBool("inGround", true);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.45f);
         transform.position = kapliaEnd.position;
         gameObject.renderer.enabled = false;
     }

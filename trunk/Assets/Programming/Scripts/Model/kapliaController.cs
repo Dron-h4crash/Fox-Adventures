@@ -35,8 +35,7 @@ public class kapliaController : MonoBehaviour {
 
     void StopAttack()
     {
-        Debug.Log("stop");
-        inFly = false;
+       inFly = false;
         
     }
 	
