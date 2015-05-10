@@ -79,12 +79,12 @@ public class KolobokKontroller : EnemyController
 
     public void RealyDie()
     {
-        StartCoroutine(DieAnimate());
+        StartCoroutine(DieAnimate2());
     }
-    protected IEnumerator DieAnimate()
+    protected IEnumerator DieAnimate2()
     {
 
         yield return new WaitForSeconds(0.5f);
-		Application.LoadLevelAsync("StartScene2");
+        Application.LoadLevel("Game Over");
     }
 }

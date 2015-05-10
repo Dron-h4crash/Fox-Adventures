@@ -9,10 +9,10 @@ public class GameOver1 : MonoBehaviour {
 	public void OnGUI()
 	{
 
-		if (GUI.Button(playGameRect, "Уровень 1"))
-		{
-			Application.LoadLevel("StartScene");
-		}
+        //if (GUI.Button(playGameRect, "Уровень 1"))
+        //{
+        //    Application.LoadLevel("StartScene");
+        //}
 		if (GUI.Button(quitRect, "Quit"))
 		{
 			Application.Quit();

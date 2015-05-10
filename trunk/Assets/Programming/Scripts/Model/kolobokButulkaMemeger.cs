@@ -14,7 +14,7 @@ public class kolobokButulkaMemeger : MonoBehaviour {
     void Start()
     {
         _anim = GetComponent<Animator>();
-        _anim.Play("vreschzButulka");
+        _anim.SetBool("Die", false);
         if (Bullets.Count == 0)
         {
             next = this;

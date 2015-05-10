@@ -6,9 +6,12 @@ public class NewBehaviourScript : MonoBehaviour {
     public GUIStyle welcomeLabel; 
 
     public GUISkin customSkin;
-	private Rect playGameRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 - Screen.height / 8, Screen.width / 2, Screen.height / 5);     
+	private Rect play1GameRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 - 4*Screen.height / 9, Screen.width / 2, Screen.height / 10);
+    private Rect play2GameRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 - 3*Screen.height / 9, Screen.width / 2, Screen.height / 10);
+    private Rect play3GameRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 - 2*Screen.height / 9, Screen.width / 2, Screen.height / 10);
+    private Rect play4GameRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 - Screen.height / 9, Screen.width / 2, Screen.height / 10);
     //public Rect optionsRect;      
-	private Rect quitRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 + Screen.height / 8, Screen.width / 2, Screen.height / 5);        
+	private Rect quitRect = new Rect(Screen.width / 2 - Screen.width / 4, Screen.height / 2 + 2*Screen.height / 8, Screen.width / 2, Screen.height / 5);        
 
 	//private bool optionsMode = false;
     private bool menuMode = true;   //1
@@ -51,17 +54,38 @@ public class NewBehaviourScript : MonoBehaviour {
                 if (!gameMode)
                 {              
                     //if (GUI.Button(playGameRect, "Play Game"))
-					if (GUI.Button(playGameRect, "ИГРАТЬ"))
+					if (GUI.Button(play1GameRect, "УРОВЕНЬ 1"))
                     {
                         menuMode = false;   
                         gameMode = true;    
                         Time.timeScale = 1; 
                         Application.LoadLevel("StartScene");
                     }
+                    if (GUI.Button(play2GameRect, "УРОВЕНЬ 2"))
+                    {
+                        menuMode = false;
+                        gameMode = true;
+                        Time.timeScale = 1;
+                        Application.LoadLevel("StartScene2");
+                    }
+                    if (GUI.Button(play3GameRect, "УРОВЕНЬ 3"))
+                    {
+                        menuMode = false;
+                        gameMode = true;
+                        Time.timeScale = 1;
+                        Application.LoadLevel("StartScene3");
+                    }
+                    if (GUI.Button(play4GameRect, "УРОВЕНЬ 4"))
+                    {
+                        menuMode = false;
+                        gameMode = true;
+                        Time.timeScale = 1;
+                        Application.LoadLevel("StartScene3");
+                    }
                 }
                 else
                 {
-					if (GUI.Button(playGameRect, "ПРОДОЛЖИТЬ"))
+					if (GUI.Button(play1GameRect, "ПРОДОЛЖИТЬ"))
                     {
                         //var _ml = GameObject.Find("HeroController").GetComponent(MouseLook);//4
                         //_ml.enabled = true; //4
