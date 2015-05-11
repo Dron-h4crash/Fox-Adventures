@@ -40,7 +40,6 @@ public class VoronaController : EnemyController
     protected IEnumerator DieAnimateVor()
     {
         //rigidbody2D.isKinematic = true;
-        _anim.SetTrigger("Die");
         yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
     }
