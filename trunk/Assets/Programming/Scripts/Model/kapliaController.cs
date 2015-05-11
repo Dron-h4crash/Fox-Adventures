@@ -29,7 +29,7 @@ public class kapliaController : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         _anim.SetBool("fire", false);
         Fire(kapliaStart.position);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         StopAttack();
     }
 
