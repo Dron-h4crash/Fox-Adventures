@@ -32,6 +32,19 @@ public class VoronaController : EnemyController
         return data;
     }
 
+    public void RealyDie()
+    {
+        StartCoroutine(DieAnimateVor());
+    }
+
+    protected IEnumerator DieAnimateVor()
+    {
+        //rigidbody2D.isKinematic = true;
+        _anim.SetTrigger("Die");
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
+    }
+
 	protected override void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "Butulka")
