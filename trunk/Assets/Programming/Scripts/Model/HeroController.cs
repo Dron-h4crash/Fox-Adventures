@@ -271,7 +271,7 @@ public class HeroController : MonoBehaviour
 
 	public void KoveyerMove(bool left)
 	{
-		Debug.Log("123");
+		//Debug.Log("123");
 		if(!moveKonv)
 		MoveKonveier(left);
 		

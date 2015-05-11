@@ -80,7 +80,7 @@ public class NewBehaviourScript : MonoBehaviour {
                         menuMode = false;
                         gameMode = true;
                         Time.timeScale = 1;
-                        Application.LoadLevel("StartScene3");
+                        Application.LoadLevel("StartScene4");
                     }
                 }
                 else
