@@ -218,12 +218,9 @@ public class HeroController : MonoBehaviour
 		
 		_anim.SetBool("Die", true);
 		yield return new WaitForSeconds(0.5f);
-		//Application.LoadLevel("Game Over");
+		Application.LoadLevel("Game Over");
 
-        PlayerPrefs.SetInt("WinWeapon1", WeaponManager.Instance.CurrentAmmo1);
-        PlayerPrefs.SetInt("WinWeapon2", WeaponManager.Instance.CurrentAmmo2);
-        PlayerPrefs.SetInt("WinWeapon3", WeaponManager.Instance.CurrentAmmo3);
-        Application.LoadLevel("Winn");
+        
 	}
 
     public void HpChangedMessage(float hp)

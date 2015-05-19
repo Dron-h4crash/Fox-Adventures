@@ -85,7 +85,9 @@ public class KolobokKontroller : EnemyController
     {
 
         yield return new WaitForSeconds(0.5f);
-        Application.DontDestroyOnLoad(WeaponManager.Instance);
+        PlayerPrefs.SetInt("WinWeapon1", WeaponManager.Instance.CurrentAmmo1);
+        PlayerPrefs.SetInt("WinWeapon2", WeaponManager.Instance.CurrentAmmo2);
+        PlayerPrefs.SetInt("WinWeapon3", WeaponManager.Instance.CurrentAmmo3);
         Application.LoadLevel("Winn");
     }
 }
