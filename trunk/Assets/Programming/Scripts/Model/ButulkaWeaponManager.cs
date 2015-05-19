@@ -29,6 +29,8 @@ public class ButulkaWeaponManager : MonoBehaviour {
         gameObject.renderer.enabled = false;
     }
 
+    Vector2 tdirection = new Vector2();
+
     void Fire(Vector2 position, Vector2 direction)
     {
         rigidbody2D.isKinematic = true;
@@ -36,13 +38,20 @@ public class ButulkaWeaponManager : MonoBehaviour {
         rigidbody2D.isKinematic = false;
         gameObject.renderer.enabled = true;
         rigidbody2D.velocity = direction * Speed;
+        tdirection = direction;
         WeaponManager.Fire1 -= Fire;
         WeaponManager.Fire1 += next.Fire;
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-		StartCoroutine(DieAnimate());
+        if (other.gameObject.tag == "Butulka")
+        {
+            rigidbody2D.velocity = tdirection * Speed;
+            Physics2D.IgnoreCollision(gameObject.collider2D, other.gameObject.collider2D, true);
+        }
+        else
+            StartCoroutine(DieAnimate());
 		
     }
 

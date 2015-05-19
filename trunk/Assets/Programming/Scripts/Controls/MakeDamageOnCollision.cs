@@ -15,5 +15,6 @@ public class MakeDamageOnCollision : MonoBehaviour
     {
         //Debug.Log(string.Format("Hit: {0}", other.gameObject.name));
         if(other.gameObject.tag == EnemyTag) other.gameObject.SendMessageUpwards("ApplyDamage", Damage);
+        else Physics2D.IgnoreCollision(gameObject.collider2D, other.gameObject.collider2D);
     }
 }
