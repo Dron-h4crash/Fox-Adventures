@@ -15,7 +15,7 @@ public class GameOver1 : MonoBehaviour {
         //}
 		if (GUI.Button(quitRect, "ВЫХОД"))
 		{
-			Application.Quit();
+			Application.LoadLevel("nenu");
 		}
 
 	}

@@ -26,6 +26,10 @@ public class WeaponManager : MonoBehaviour {
     int _currentAmmo2;
     int _currentAmmo3;
 
+    //public void Awake()
+    //{
+    //    DontDestroyOnLoad(this);
+    //}
 
     public int CurrentAmmo
     {

@@ -21,10 +21,10 @@ public class NewBehaviourScript : MonoBehaviour {
     public float _bulletImpulse  = 300;
     public float _shootDelay   = 1;
 
-    public void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
+    //public void Awake()
+    //{
+    //    DontDestroyOnLoad(this);
+    //}
 	
 	// Update is called once per frame
     public void OnGUI()
