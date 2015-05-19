@@ -85,6 +85,7 @@ public class KolobokKontroller : EnemyController
     {
 
         yield return new WaitForSeconds(0.5f);
-        Application.LoadLevel("Game Over");
+        Application.DontDestroyOnLoad(WeaponManager.Instance);
+        Application.LoadLevel("Winn");
     }
 }
