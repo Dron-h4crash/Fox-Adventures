@@ -13,7 +13,7 @@ public class saveResult : MonoBehaviour {
     public void SaveScore()
     {
         var player = string.IsNullOrEmpty(PlayerPrefs.GetString("WinCurrName")) ? "Игрок" : PlayerPrefs.GetString("WinCurrName");
-        var score = PlayerPrefs.GetInt("WinWeapon1") * 50 + PlayerPrefs.GetInt("WinWeapon2") * 100 + PlayerPrefs.GetInt("WinWeapon3") * 150;
+        var score = PlayerPrefs.GetInt("CurrentScore");
         var kol = PlayerPrefs.GetInt("colWiners");
 
 
