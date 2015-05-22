@@ -26,6 +26,9 @@ public class WeaponManager : MonoBehaviour {
     int _currentAmmo2;
     int _currentAmmo3;
 
+
+    public AudioClip clip;
+
     //public void Awake()
     //{
     //    DontDestroyOnLoad(this);
@@ -122,6 +125,10 @@ public class WeaponManager : MonoBehaviour {
 
     void AddButulka(int count, int type)
     {
+        var audio = GetComponent<AudioSource>();
+
+        audio.clip = clip;
+        audio.Play();
         switch (type)
         {
             case 1:

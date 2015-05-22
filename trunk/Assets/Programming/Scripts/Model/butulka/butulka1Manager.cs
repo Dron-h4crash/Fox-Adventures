@@ -17,6 +17,7 @@ public class butulka1Manager : MonoBehaviour {
     {
 		if (other.gameObject.tag == HeroTag)
 		{
+            
 			gameObject.renderer.enabled = false;
 			Destroy(gameObject);
 			other.gameObject.SendMessageUpwards("AddButulka" + type.ToString(), count);
