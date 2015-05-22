@@ -6,6 +6,11 @@ using System;
 
 public class HeroController : MonoBehaviour
 {
+    public AudioClip shag;
+    public AudioClip prizem;
+    public AudioClip dubinka;
+    public AudioClip uron;
+
     public float[] Yspeed;
 
     public float MaxSpeed = 5f;
@@ -173,7 +178,15 @@ public class HeroController : MonoBehaviour
 		if (IsGrounded)  yield return new WaitForSeconds(0.3f);
 		switch (WeaponManager.Instance.HeroWeapon)
 		{
-			case WeaponManager.HeroWeapons.Dubinka: BroadcastMessage("DubinkaHit"); break;
+            case WeaponManager.HeroWeapons.Dubinka:
+                {
+                    BroadcastMessage("DubinkaHit");
+                    var audio = GetComponent<AudioSource>();
+
+                    audio.clip = dubinka;
+                    audio.Play();
+                    break;
+                }
 			//if (Hit != null) Hit(); break;
 			//case WeaponManager.HeroWeapons.Pistol: if (Fire != null) Fire(HeroBulletSpawn.position, _isFacingRight? WeaponManager.FireDirection.Right: WeaponManager.FireDirection.Left); break;
 			case WeaponManager.HeroWeapons.Butulka1: if (Fire1 != null) Fire1(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 1); break;
@@ -184,6 +197,8 @@ public class HeroController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+
         var speedX = _moveX;
 //        var speedY = 0f;
         var speedY = rigidbody2D.velocity.y;
@@ -194,6 +209,13 @@ public class HeroController : MonoBehaviour
 
         rigidbody2D.velocity = new Vector2(speedX * MaxSpeed, speedY);
         if (speedX > 0f && !_isFacingRight || speedX < 0f && _isFacingRight) Flip();
+
+        var audio = GetComponent<AudioSource>();
+        if (IsGrounded && speedY == 0 && Mathf.Abs(_moveX) != 0)
+        {
+            audio.clip = shag;
+            audio.Play();
+        }
     }
 
     private void Update()
@@ -236,7 +258,10 @@ public class HeroController : MonoBehaviour
     public void DamageReceived()
     {
 		StartCoroutine(DamageAnimate());
-       
+        var audio = GetComponent<AudioSource>();
+
+        audio.clip = uron;
+        audio.Play();
     }
 
 	protected IEnumerator DamageAnimate()

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 public class ButulkaWeaponManager : MonoBehaviour {
 
@@ -11,10 +10,11 @@ public class ButulkaWeaponManager : MonoBehaviour {
     public ButulkaWeaponManager next;
 	protected Animator _anim;
 	public string EnemyTag;
-
+    public AudioClip clip1;
+    public AudioClip clip2;
 
     void Start()
-    {
+    {        
 		_anim = GetComponent<Animator>();
 		_anim.Play("vreschzButulka");
         if (Bullets.Count == 0)
@@ -32,13 +32,13 @@ public class ButulkaWeaponManager : MonoBehaviour {
     }
 
     Vector2 tdirection = new Vector2();
-
+    bool one = false;
     void Fire(Vector2 position, Vector2 direction)
     {
-
-         var audio = GetComponent<AudioSource>();
-	      audio.Play();
-
+        var audio = GetComponent<AudioSource>();
+        audio.clip = clip1;
+        audio.Play();
+        one = true;
 
         rigidbody2D.isKinematic = true;
         transform.position = position;
@@ -66,6 +66,13 @@ public class ButulkaWeaponManager : MonoBehaviour {
 
 	protected IEnumerator DieAnimate()
 	{
+        var audio = GetComponent<AudioSource>();
+        audio.clip = clip2;
+        if (one)
+        {
+            audio.Play();
+            one = false;
+        }
 		//rigidbody2D.isKinematic = true;
 		_anim.SetBool("Die",true);
 		yield return new WaitForSeconds(0.3f);

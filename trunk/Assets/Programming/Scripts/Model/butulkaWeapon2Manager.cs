@@ -11,6 +11,8 @@ public class butulkaWeapon2Manager : MonoBehaviour
 	public butulkaWeapon2Manager next;
 	protected Animator _anim;
 	public string EnemyTag;
+    public AudioClip clip1;
+    public AudioClip clip2;
 
 	void Start()
 	{
@@ -30,10 +32,14 @@ public class butulkaWeapon2Manager : MonoBehaviour
 		gameObject.renderer.enabled = false;
 	}
     Vector2 tdirection = new Vector2();
+    bool one = false;
 	void Fire(Vector2 position, Vector2 direction)
 	{
         var audio = GetComponent<AudioSource>();
+
+        audio.clip = clip1;
         audio.Play();
+        one = true;
 		rigidbody2D.isKinematic = true;
 		transform.position = position;
 		rigidbody2D.isKinematic = false;
@@ -60,6 +66,13 @@ public class butulkaWeapon2Manager : MonoBehaviour
 
 	protected IEnumerator DieAnimate()
 	{
+        var audio = GetComponent<AudioSource>();
+        audio.clip = clip2;
+        if (one)
+        {
+            audio.Play();
+            one = false;
+        }
 		//rigidbody2D.isKinematic = true;
 		_anim.SetBool("Die", true);
 		yield return new WaitForSeconds(0.3f);

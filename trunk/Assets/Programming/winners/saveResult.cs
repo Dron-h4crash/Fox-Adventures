@@ -18,7 +18,7 @@ public class saveResult : MonoBehaviour {
 
 
         var results = new Dictionary<int, result>();
-        for (int i = 0; i < kol; i++)
+        for (int i = 1; i < kol; i++)
         {
             var name = PlayerPrefs.GetString("winname" + i.ToString());
             var res = PlayerPrefs.GetInt("winres" + i.ToString());
@@ -52,6 +52,11 @@ public class saveResult : MonoBehaviour {
             insertN++;
         }
 
+        if (results.Count == 0)
+        {
+            newresults.Add(1, newresult);
+        }
+
         ///save results
         var N = 1;
         foreach (var t in newresults)
@@ -63,6 +68,6 @@ public class saveResult : MonoBehaviour {
         PlayerPrefs.SetInt("colWiners", N);
         Debug.Log(N);
 
-
+        Destroy(gameObject);
     }
 }
