@@ -32,6 +32,8 @@ public class butulkaWeapon3Manager : MonoBehaviour
     Vector2 tdirection = new Vector2();
 	void Fire(Vector2 position, Vector2 direction)
 	{
+        var audio = GetComponent<AudioSource>();
+        audio.Play();
 		rigidbody2D.isKinematic = true;
 		transform.position = position;
 		rigidbody2D.isKinematic = false;

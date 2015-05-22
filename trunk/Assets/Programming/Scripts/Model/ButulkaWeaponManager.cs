@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class ButulkaWeaponManager : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class ButulkaWeaponManager : MonoBehaviour {
     public ButulkaWeaponManager next;
 	protected Animator _anim;
 	public string EnemyTag;
+
 
     void Start()
     {
@@ -33,6 +35,11 @@ public class ButulkaWeaponManager : MonoBehaviour {
 
     void Fire(Vector2 position, Vector2 direction)
     {
+
+         var audio = GetComponent<AudioSource>();
+	      audio.Play();
+
+
         rigidbody2D.isKinematic = true;
         transform.position = position;
         rigidbody2D.isKinematic = false;

@@ -2,7 +2,7 @@
 
 public class SmoothCamera2D : MonoBehaviour
 {
-    public float DampTime = 0.15f;
+    public float DampTime = 0.05f;
     public Vector3 staticDelta;
     public Transform Target;
 

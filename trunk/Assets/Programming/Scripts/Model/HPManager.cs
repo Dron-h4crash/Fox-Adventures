@@ -5,9 +5,11 @@ public class HPManager : MonoBehaviour
 {
     #region Inspector
     public int StartHp = 100;
+    public int KillPoint =50;
     #endregion
 
     int _hp;
+
 
     public int Hp
     {
@@ -27,6 +29,9 @@ public class HPManager : MonoBehaviour
         if (Hp < 0f) 
         { 
             Hp = 0;
+            var score = PlayerPrefs.GetInt("CurrentScore");
+            score += KillPoint;
+            PlayerPrefs.SetInt("CurrentScore", score);
             gameObject.SendMessage("Die");
             gameObject.SendMessage("RealyDie");
         }
