@@ -25,6 +25,18 @@ public class NewBehaviourScript : MonoBehaviour {
     //{
     //    DontDestroyOnLoad(this);
     //}
+
+    public void PlayGame()
+    {
+        Debug.Log("start game");
+        PlayerPrefs.SetInt("CurrentScore", 0);
+        Application.LoadLevel("StartScene");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 	
 	// Update is called once per frame
     public void OnGUI()
@@ -53,35 +65,35 @@ public class NewBehaviourScript : MonoBehaviour {
 
                 if (!gameMode)
                 {              
-                    //if (GUI.Button(playGameRect, "Play Game"))
-					if (GUI.Button(play1GameRect, "УРОВЕНЬ 1"))
-                    {
-                        menuMode = false;   
-                        gameMode = true;    
-                        Time.timeScale = 1; 
-                        Application.LoadLevel("StartScene");
-                    }
-                    if (GUI.Button(play2GameRect, "УРОВЕНЬ 2"))
-                    {
-                        menuMode = false;
-                        gameMode = true;
-                        Time.timeScale = 1;
-                        Application.LoadLevel("StartScene2");
-                    }
-                    if (GUI.Button(play3GameRect, "УРОВЕНЬ 3"))
-                    {
-                        menuMode = false;
-                        gameMode = true;
-                        Time.timeScale = 1;
-                        Application.LoadLevel("StartScene3");
-                    }
-                    if (GUI.Button(play4GameRect, "УРОВЕНЬ 4"))
-                    {
-                        menuMode = false;
-                        gameMode = true;
-                        Time.timeScale = 1;
-                        Application.LoadLevel("StartScene4");
-                    }
+                    ////if (GUI.Button(playGameRect, "Play Game"))
+                    //if (GUI.Button(play1GameRect, "УРОВЕНЬ 1"))
+                    //{
+                    //    menuMode = false;   
+                    //    gameMode = true;    
+                    //    Time.timeScale = 1; 
+                    //    Application.LoadLevel("StartScene");
+                    //}
+                    //if (GUI.Button(play2GameRect, "УРОВЕНЬ 2"))
+                    //{
+                    //    menuMode = false;
+                    //    gameMode = true;
+                    //    Time.timeScale = 1;
+                    //    Application.LoadLevel("StartScene2");
+                    //}
+                    //if (GUI.Button(play3GameRect, "УРОВЕНЬ 3"))
+                    //{
+                    //    menuMode = false;
+                    //    gameMode = true;
+                    //    Time.timeScale = 1;
+                    //    Application.LoadLevel("StartScene3");
+                    //}
+                    //if (GUI.Button(play4GameRect, "УРОВЕНЬ 4"))
+                    //{
+                    //    menuMode = false;
+                    //    gameMode = true;
+                    //    Time.timeScale = 1;
+                    //    Application.LoadLevel("StartScene4");
+                    //}
                 }
                 else
                 {
@@ -92,6 +104,10 @@ public class NewBehaviourScript : MonoBehaviour {
                         Time.timeScale = 1; //3
                         menuMode = false;   //1
                     }
+                    if (GUI.Button(quitRect, "ВЫХОД"))
+                    {
+                        Application.Quit();
+                    }
                 }
 
                 //if (GUI.Button(optionsRect, "Options"))
@@ -99,10 +115,7 @@ public class NewBehaviourScript : MonoBehaviour {
                 //    optionsMode = true;
                 //}
 
-                if (GUI.Button(quitRect, "ВЫХОД"))
-                {
-                    Application.Quit();
-                }
+                
 
            // }
             //else
