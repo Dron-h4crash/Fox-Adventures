@@ -61,6 +61,7 @@ public class kolobokButulkaMemeger : MonoBehaviour {
         if (one)
         {
             audio.Play();
+            audio.volume = 0.1f;
             one = false;
         }
         //rigidbody2D.isKinematic = true;

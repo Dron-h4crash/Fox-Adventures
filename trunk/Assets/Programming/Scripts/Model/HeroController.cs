@@ -195,6 +195,8 @@ public class HeroController : MonoBehaviour
 		}
 	}
 
+    bool play = false;
+
     private void FixedUpdate()
     {
         
@@ -210,13 +212,27 @@ public class HeroController : MonoBehaviour
         rigidbody2D.velocity = new Vector2(speedX * MaxSpeed, speedY);
         if (speedX > 0f && !_isFacingRight || speedX < 0f && _isFacingRight) Flip();
 
-        var audio = GetComponent<AudioSource>();
+        
         if (IsGrounded && speedY == 0 && Mathf.Abs(_moveX) != 0)
         {
-            audio.clip = shag;
-            audio.Play();
+            if (!play)
+            {
+                StartCoroutine(shagsound());
+                play = true;
+            }
+            
         }
     }
+
+    protected IEnumerator shagsound()
+    {
+        var audio = GetComponent<AudioSource>();
+        audio.clip = shag;
+        audio.Play();
+        yield return new WaitForSeconds(0.2f);
+        play = false;
+    }
+
 
     private void Update()
     {
