@@ -10,6 +10,8 @@ public class kolobokButulkaMemeger : MonoBehaviour {
     public kolobokButulkaMemeger next;
     protected Animator _anim;
     public string EnemyTag;
+    public AudioClip clip1;
+    public AudioClip clip2;
 
     void Start()
     {
@@ -28,9 +30,13 @@ public class kolobokButulkaMemeger : MonoBehaviour {
         Bullets.Add(this);
         gameObject.renderer.enabled = false;
     }
-
+    bool one = false;
     void Fire(Vector2 position, Vector2 direction)
     {
+        var audio = GetComponent<AudioSource>();
+        audio.clip = clip1;
+        audio.Play();
+        one = true;
         rigidbody2D.isKinematic = true;
         transform.position = position;
         rigidbody2D.isKinematic = false;
@@ -50,6 +56,13 @@ public class kolobokButulkaMemeger : MonoBehaviour {
 
     protected IEnumerator DieAnimate()
     {
+        var audio = GetComponent<AudioSource>();
+        audio.clip = clip2;
+        if (one)
+        {
+            audio.Play();
+            one = false;
+        }
         //rigidbody2D.isKinematic = true;
         _anim.SetBool("Die", true);
         yield return new WaitForSeconds(0.3f);

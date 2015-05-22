@@ -9,6 +9,7 @@ public class HeroController : MonoBehaviour
     public AudioClip shag;
     public AudioClip prizem;
     public AudioClip dubinka;
+    public AudioClip uron;
 
     public float[] Yspeed;
 
@@ -257,7 +258,10 @@ public class HeroController : MonoBehaviour
     public void DamageReceived()
     {
 		StartCoroutine(DamageAnimate());
-       
+        var audio = GetComponent<AudioSource>();
+
+        audio.clip = uron;
+        audio.Play();
     }
 
 	protected IEnumerator DamageAnimate()
