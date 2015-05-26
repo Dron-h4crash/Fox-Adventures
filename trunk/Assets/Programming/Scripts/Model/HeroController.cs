@@ -22,10 +22,10 @@ public class HeroController : MonoBehaviour
     public static Action<Vector2, WeaponManager.FireDirection, int> Fire1;
     public static Action<Vector2, WeaponManager.FireDirection, int> Fire2;
     public static Action<Vector2, WeaponManager.FireDirection, int> Fire3;
-//    public static Action Hit;
+    //    public static Action Hit;
     public static Action<float> HpChanged;
 
-    public static Action<int,int> AddButulkaToWeapon;
+    public static Action<int, int> AddButulkaToWeapon;
 
     public static HeroController Instance;
 
@@ -38,15 +38,20 @@ public class HeroController : MonoBehaviour
     public GameObject DubinkaHitting;
     public Transform HeroBulletSpawn;
 
+    AudioSource audio;
+    DubinkaManager dubinkaObject;
+
     public bool IsGrounded
     {
-        get { return Physics2D.OverlapCircle(GroundCheck.position, GroundRadius, GroundLayerMask); }
+        get { if (GroundCheck != null) return Physics2D.OverlapCircle(GroundCheck.position, GroundRadius, GroundLayerMask); else return false; }
     }
 
     void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(transform.gameObject);
     }
+
     void Start()
     {
         _anim = GetComponent<Animator>();
@@ -70,16 +75,30 @@ public class HeroController : MonoBehaviour
 
         WeaponManager.WeaponChanged += WeaponChanged;
         _anim.CrossFade("lis_stand_dubinka", 0f);
+
+        audio = GetComponent<AudioSource>();
+        dubinkaObject = GetComponent<DubinkaManager>();
     }
 
     void WeaponChanged(WeaponManager.HeroWeapons weapon)
     {
-        switch (weapon)
+        if (_anim != null)
         {
-            case WeaponManager.HeroWeapons.Dubinka: _anim.CrossFade("lis_stand_dubinka", 0f); break;
-            case WeaponManager.HeroWeapons.Butulka1: _anim.CrossFade("lis_stand_with_butulka", 0f); break;
-            case WeaponManager.HeroWeapons.Butulka2: _anim.CrossFade("lis_stand_with_butulka", 0f); break;
-            case WeaponManager.HeroWeapons.Butulka3: _anim.CrossFade("lis_stand_with_butulka", 0f); break;
+            switch (weapon)
+            {
+                case WeaponManager.HeroWeapons.Dubinka:
+                    _anim.CrossFade("lis_stand_dubinka", 0f);
+                    break;
+                case WeaponManager.HeroWeapons.Butulka1:
+                    _anim.CrossFade("lis_stand_with_butulka", 0f);
+                    break;
+                case WeaponManager.HeroWeapons.Butulka2:
+                    _anim.CrossFade("lis_stand_with_butulka", 0f);
+                    break;
+                case WeaponManager.HeroWeapons.Butulka3:
+                    _anim.CrossFade("lis_stand_with_butulka", 0f);
+                    break;
+            }
         }
     }
 
@@ -90,19 +109,25 @@ public class HeroController : MonoBehaviour
 
     IEnumerator GoDown()
     {
-        _positionY = 0.5f;
-        _anim.SetFloat("yPos", _positionY);
-        yield return new WaitForEndOfFrame();
-        _positionY = 0.0f;
-        _anim.SetFloat("yPos", _positionY);
+        if (_anim != null)
+        {
+            _positionY = 0.5f;
+            _anim.SetFloat("yPos", _positionY);
+            yield return new WaitForEndOfFrame();
+            _positionY = 0.0f;
+            _anim.SetFloat("yPos", _positionY);
+        }
     }
     IEnumerator GoUp()
     {
-        _positionY = 0.5f;
-        _anim.SetFloat("yPos", _positionY);
-        yield return new WaitForEndOfFrame();
-        _positionY = 1.0f;
-        _anim.SetFloat("yPos", _positionY);
+        if (_anim != null)
+        {
+            _positionY = 0.5f;
+            _anim.SetFloat("yPos", _positionY);
+            yield return new WaitForEndOfFrame();
+            _positionY = 1.0f;
+            _anim.SetFloat("yPos", _positionY);
+        }
     }
 
     void MoveRight()
@@ -120,14 +145,11 @@ public class HeroController : MonoBehaviour
     void Stop()
     {
         if (_positionY < 1.0f) StartCoroutine(GoUp());
-        StartCoroutine(CheckJump());   // если герой в прыжке, подождать останавливать до приземления
+        if (IsGrounded)
+            _moveX = 0f;
+        // если герой в прыжке, подождать останавливать до приземления
     }
 
-    IEnumerator CheckJump()
-    {
-        while (!IsGrounded) yield return new WaitForFixedUpdate();
-        _moveX = 0f;
-    }
 
     public void Jump()
     {
@@ -163,46 +185,56 @@ public class HeroController : MonoBehaviour
 
     void Attack(bool on)
     {
-		if (!on)
-		{
-			_anim.SetBool("Attack", on);
-			return;
-		}
-		StartCoroutine(WeaponAnimate());
+        if (!on)
+        {
+            if (_anim != null) _anim.SetBool("Attack", on);
+            return;
+        }
+        WeaponAnimate();
 
     }
 
-	protected IEnumerator WeaponAnimate()
-	{
-		_anim.SetBool("Attack", true);
-		if (IsGrounded)  yield return new WaitForSeconds(0.3f);
-		switch (WeaponManager.Instance.HeroWeapon)
-		{
-            case WeaponManager.HeroWeapons.Dubinka:
-                {
-                    BroadcastMessage("DubinkaHit");
-                    var audio = GetComponent<AudioSource>();
+    protected void WeaponAnimate()
+    {
+        if (_anim != null) _anim.SetBool("Attack", true);
+        //	if (IsGrounded)  yield return new WaitForSeconds(0.3f);
 
-                    audio.clip = dubinka;
-                    audio.Play();
-                    break;
-                }
-			//if (Hit != null) Hit(); break;
-			//case WeaponManager.HeroWeapons.Pistol: if (Fire != null) Fire(HeroBulletSpawn.position, _isFacingRight? WeaponManager.FireDirection.Right: WeaponManager.FireDirection.Left); break;
-			case WeaponManager.HeroWeapons.Butulka1: if (Fire1 != null) Fire1(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 1); break;
-			case WeaponManager.HeroWeapons.Butulka2: if (Fire2 != null) Fire2(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 2); break;
-			case WeaponManager.HeroWeapons.Butulka3: if (Fire3 != null) Fire3(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 3); break;
-		}
-	}
+        if (WeaponManager.Instance.HeroWeapon == WeaponManager.HeroWeapons.Dubinka)
+        {
+            //	if (dubinkaObject != null) dubinkaObject.DubinkaHit();      
+            BroadcastMessage("DubinkaHit");
+            if (audio != null)
+            {
+                audio.clip = dubinka;
+                audio.Play();
+
+            }
+        }
+        else if (WeaponManager.Instance.HeroWeapon == WeaponManager.HeroWeapons.Butulka1)
+        {
+            if (Fire1 != null && HeroBulletSpawn != null && _isFacingRight != null)
+                Fire1(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 1);
+        }
+        else if (WeaponManager.Instance.HeroWeapon == WeaponManager.HeroWeapons.Butulka2)
+        {
+            if (Fire2 != null && HeroBulletSpawn != null)
+                Fire2(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 2);
+        }
+        else if (WeaponManager.Instance.HeroWeapon == WeaponManager.HeroWeapons.Butulka3)
+        {
+            if (Fire3 != null && HeroBulletSpawn != null)
+                Fire3(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 3);
+        }
+    }
 
     bool play = false;
 
     private void FixedUpdate()
     {
-        
+
 
         var speedX = _moveX;
-//        var speedY = 0f;
+        //        var speedY = 0f;
         var speedY = rigidbody2D.velocity.y;
 
         _anim.SetBool("Ground", IsGrounded);
@@ -212,7 +244,7 @@ public class HeroController : MonoBehaviour
         rigidbody2D.velocity = new Vector2(speedX * MaxSpeed, speedY);
         if (speedX > 0f && !_isFacingRight || speedX < 0f && _isFacingRight) Flip();
 
-        
+
         if (IsGrounded && speedY == 0 && Mathf.Abs(_moveX) != 0)
         {
             if (!play)
@@ -220,15 +252,17 @@ public class HeroController : MonoBehaviour
                 StartCoroutine(shagsound());
                 play = true;
             }
-            
+
         }
     }
 
     protected IEnumerator shagsound()
     {
-        var audio = GetComponent<AudioSource>();
-        audio.clip = shag;
-        audio.Play();
+        if (audio != null)
+        {
+            audio.clip = shag;
+            audio.Play();
+        }
         yield return new WaitForSeconds(0.2f);
         play = false;
     }
@@ -236,6 +270,12 @@ public class HeroController : MonoBehaviour
 
     private void Update()
     {
+  //      if (Input.GetKeyUp(KeyCode.Space))
+  //      {
+           // yield return new WaitForSeconds(0.5f);
+    //        LoadingConfig.Scene = Application.loadedLevel + 1;
+    //        Application.LoadLevel(7);
+    //    }   ТЕСТЫ
     }
 
     private void Flip()
@@ -247,92 +287,94 @@ public class HeroController : MonoBehaviour
     }
 
     public void Die()
-	{
-		StartCoroutine(DieAnimate());
-	}
+    {
+        StartCoroutine(DieAnimate());
+    }
 
-	protected IEnumerator DieAnimate()
-	{
-		
-		_anim.SetBool("Die", true);
-		yield return new WaitForSeconds(0.5f);
-		Application.LoadLevel("Game Over");
+    protected IEnumerator DieAnimate()
+    {
 
-        
-	}
+        _anim.SetBool("Die", true);
+        yield return new WaitForSeconds(0.5f);
+        Application.LoadLevel("Game Over");
+
+
+    }
 
     public void HpChangedMessage(float hp)
     {
         if (HpChanged != null) HpChanged(hp);
-		//if (hp == 0)
-		//{
-		//	_anim.SetBool("Die", true);
-		//	Application.LoadLevel("Game Over");
-		//}
+        //if (hp == 0)
+        //{
+        //	_anim.SetBool("Die", true);
+        //	Application.LoadLevel("Game Over");
+        //}
     }
 
     public void DamageReceived()
     {
-		StartCoroutine(DamageAnimate());
-        var audio = GetComponent<AudioSource>();
+        StartCoroutine(DamageAnimate());
 
-        audio.clip = uron;
-        audio.Play();
+        if (audio != null)
+        {
+            audio.clip = uron;
+            audio.Play();
+        }
     }
 
-	protected IEnumerator DamageAnimate()
-	{
-		_anim.SetTrigger("Damage");
-		//отодвинуть назад
-		if (_isFacingRight)
-		{
-			if (IsGrounded) rigidbody2D.AddForce(new Vector2(-850f, 0f));
-		}
-		else
-		{
-			if (IsGrounded) rigidbody2D.AddForce(new Vector2(850f, 0));
-		}
-		yield return new WaitForSeconds(0.1f);
+    protected IEnumerator DamageAnimate()
+    {
+        _anim.SetTrigger("Damage");
+        //отодвинуть назад
+        if (_isFacingRight)
+        {
+            if (IsGrounded) rigidbody2D.AddForce(new Vector2(-850f, 0f));
+        }
+        else
+        {
+            if (IsGrounded) rigidbody2D.AddForce(new Vector2(850f, 0));
+        }
+        yield return new WaitForSeconds(0.1f);
 
 
-	}
+    }
 
     public void AddButulka1(int count)
     {
-        AddButulkaToWeapon(count,1);
+        AddButulkaToWeapon(count, 1);
     }
     public void AddButulka2(int count)
     {
-        AddButulkaToWeapon(count,2);
+        AddButulkaToWeapon(count, 2);
     }
     public void AddButulka3(int count)
     {
-        AddButulkaToWeapon(count,3);
+        AddButulkaToWeapon(count, 3);
     }
 
-	private bool moveKonv = false;
+    private bool moveKonv = false;
 
-	public void KoveyerMove(bool left)
-	{
-		//Debug.Log("123");
-		if(!moveKonv)
-		MoveKonveier(left);
-		
-	}
-	protected void MoveKonveier(bool left)
-	{
-		moveKonv = true;
-		if (left)
-		{
-			rigidbody2D.AddForce(new Vector2(-300f, 80f));
+    public void KoveyerMove(bool left)
+    {
+        //Debug.Log("123");
+        if (!moveKonv)
+            MoveKonveier(left);
 
-		}
-		else
-		{
-			rigidbody2D.AddForce(new Vector2(300f, 80f));
+    }
+    protected void MoveKonveier(bool left)
+    {
+        moveKonv = true;
+        if (left)
+        {
+            rigidbody2D.AddForce(new Vector2(-300f, 80f));
 
-		}
-		//yield return new WaitForSeconds(0.1f);
-		moveKonv = false;
-	}
+        }
+        else
+        {
+            rigidbody2D.AddForce(new Vector2(300f, 80f));
+
+        }
+        //yield return new WaitForSeconds(0.1f);
+        moveKonv = false;
+    }
 }

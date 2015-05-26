@@ -13,6 +13,11 @@ public class butulkaWeapon3Manager : MonoBehaviour
 	public string EnemyTag;
     public AudioClip clip1;
     public AudioClip clip2;
+	AudioSource audio;
+
+	void OnDestroy(){
+
+	}
 
 	void Start()
 	{
@@ -30,24 +35,28 @@ public class butulkaWeapon3Manager : MonoBehaviour
 		}
 		Bullets.Add(this);
 		gameObject.renderer.enabled = false;
+		audio = GetComponent<AudioSource>();
 	}
     Vector2 tdirection = new Vector2();
     bool one = false;
 	void Fire(Vector2 position, Vector2 direction)
 	{
-        var audio = GetComponent<AudioSource>();
+        if (audio != null) {
 
-        audio.clip = clip1;
-        audio.Play();
+			audio.clip = clip1;
+			audio.Play ();
+		}
         one = true;
+
 		rigidbody2D.isKinematic = true;
 		transform.position = position;
 		rigidbody2D.isKinematic = false;
 		gameObject.renderer.enabled = true;
-        tdirection = direction;
+		tdirection = direction;
 		rigidbody2D.velocity = direction * Speed;
 		WeaponManager.Fire3 -= Fire;
 		WeaponManager.Fire3 += next.Fire;
+
 	}
 
 	void OnCollisionEnter2D(Collision2D other)

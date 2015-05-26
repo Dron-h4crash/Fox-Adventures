@@ -30,7 +30,8 @@ public class letiaschaiaKapliaMeneger : MonoBehaviour {
 
     void Fire(Vector2 position)
     {
-        _anim.Play("3");
+		if (_anim!=null)
+			_anim.Play("3");
         rigidbody2D.isKinematic = true;
         transform.position = position;
         transform.rotation = new Quaternion();

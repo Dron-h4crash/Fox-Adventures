@@ -8,7 +8,7 @@ public class HPManager : MonoBehaviour
     public int KillPoint =50;
     #endregion
 
-    int _hp;
+    public int _hp;
 
 
     public int Hp
@@ -17,10 +17,15 @@ public class HPManager : MonoBehaviour
         set { _hp = value; }
     }
 
-    void Start()
+    public void SetStartHP()
     {
         Hp = StartHp;
         SendMessage("HpChangedMessage", Hp);
+    }
+
+    void Start()
+    {
+        SetStartHP();  
     }
 
     public void ApplyDamage(int damage)

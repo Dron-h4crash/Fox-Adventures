@@ -16,8 +16,7 @@ public class butulka1Manager : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
 		if (other.gameObject.tag == HeroTag)
-		{
-            
+		{    
 			gameObject.renderer.enabled = false;
 			Destroy(gameObject);
 			other.gameObject.SendMessageUpwards("AddButulka" + type.ToString(), count);

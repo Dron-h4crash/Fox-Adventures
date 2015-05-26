@@ -12,8 +12,9 @@ public class SmoothCamera2D : MonoBehaviour
 
     void Start()
     {
-        if (!Target) return;
-        pos = Target.position;
+        //if (!Target) return;
+       // pos = Target.position;
+        Target = GameObject.FindGameObjectWithTag("MainHero").transform;
     }
 
     void Update()

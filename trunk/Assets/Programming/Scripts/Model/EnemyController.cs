@@ -37,11 +37,12 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if(_health.Hp < 1)
-        {
-            rigidbody2D.velocity = Vector2.zero;
-            return;
-        }
+        if (_health != null)
+            if (_health.Hp < 1)
+            {
+                rigidbody2D.velocity = Vector2.zero;
+                return;
+            }
         var speed = rigidbody2D.velocity;
 
         if (Mathf.Abs(rigidbody2D.velocity.x) > 0.1f) rigidbody2D.velocity = new Vector2(speed.x > 0f ? SpeedX : -SpeedX, speed.y);
@@ -69,7 +70,7 @@ public class EnemyController : MonoBehaviour
     protected IEnumerator DamageAnimate()
     {
         //rigidbody2D.isKinematic = true;
-        _anim.SetBool("Damage",true);
+        _anim.SetBool("Damage", true);
         yield return new WaitForSeconds(0.15f);
         _anim.SetBool("Damage", false);
     }
@@ -79,7 +80,7 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(DieAnimate());
     }
 
-    protected IEnumerator DieAnimate() 
+    protected IEnumerator DieAnimate()
     {
         //rigidbody2D.isKinematic = true;
         _anim.SetTrigger("Die");

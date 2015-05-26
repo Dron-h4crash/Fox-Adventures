@@ -17,7 +17,7 @@ public class KrolikController : EnemyController
 
     protected override IEnumerator Moving()
     {
-        while(Application.isPlaying)
+        while (Application.isPlaying)
         {
             if (!_attack)
             {
@@ -28,27 +28,38 @@ public class KrolikController : EnemyController
         }
     }
 
+//void Start()
+  // {
+      //  var Objects = GameObject.FindGameObjectWithTag("MainHero");
+       // MainHero = Objects;
+   // }
+
     protected override void OnCollisionEnter2D(Collision2D coll)
     {
-		if (TurnTags.Contains(coll.gameObject.tag)) rigidbody2D.velocity = new Vector2(-rigidbody2D.velocity.x, 0f);
-		
+        if (TurnTags.Contains(coll.gameObject.tag)) rigidbody2D.velocity = new Vector2(-rigidbody2D.velocity.x, 0f);
 
-       // rigidbody2D.velocity = coll.contacts[0].normal; // сменить скорость на противоположную точке соприкосновения
+
+        // rigidbody2D.velocity = coll.contacts[0].normal; // сменить скорость на противоположную точке соприкосновения
     }
 
     protected override void FixedUpdate()
     {
+        if (MainHero == null)
+        {
+            var Objects = GameObject.FindGameObjectWithTag("MainHero");
+            MainHero = Objects;
+        }
         if (CloseToHero() && !_attack) Attack();
-        
+
         if (transform.position.x < LeftLimit.transform.position.x) rigidbody2D.velocity = new Vector2(SpeedX, 0f);
         if (transform.position.x > RightLimit.transform.position.x) rigidbody2D.velocity = new Vector2(-SpeedX, 0f);
-		if(!_attack)
-		{
-        if (Mathf.Abs(transform.position.x - MainHero.transform.position.x) < 2 && (Mathf.Abs(transform.position.y - MainHero.transform.position.y) < 0.3))
+        if (!_attack)
         {
-            rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+            if (Mathf.Abs(transform.position.x - MainHero.transform.position.x) < 2 && (Mathf.Abs(transform.position.y - MainHero.transform.position.y) < 0.3))
+            {
+                rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+            }
         }
-		}
         base.FixedUpdate();
         _anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
     }
@@ -66,18 +77,20 @@ public class KrolikController : EnemyController
 
     protected IEnumerator DubinkaUdar()
     {
-        _anim.SetBool("Attack", true);
+        
+            _anim.SetBool("Attack", true);
         //rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
-		rigidbody2D.velocity = Vector2.zero;
+        rigidbody2D.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.1f);
         BroadcastMessage("DubinkaHit");
-		yield return new WaitForSeconds(0.33f);
+        yield return new WaitForSeconds(0.33f);
         StopAttack();
     }
 
     void StopAttack()
     {
         _attack = false;
-        _anim.SetBool("Attack", false);
+        
+            _anim.SetBool("Attack", false);
     }
 }

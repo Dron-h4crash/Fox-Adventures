@@ -25,7 +25,7 @@ public class WeaponManager : MonoBehaviour {
     int _currentAmmo1;
     int _currentAmmo2;
     int _currentAmmo3;
-
+	AudioSource audio;
 
     public AudioClip clip;
 
@@ -121,14 +121,15 @@ public class WeaponManager : MonoBehaviour {
         _currentAmmo1 = StartAmmobut1;
         _currentAmmo2 = StartAmmobut2;
         _currentAmmo3 = StartAmmobut3;
+		audio = GetComponent<AudioSource>();
 	}
 
     void AddButulka(int count, int type)
     {
-        var audio = GetComponent<AudioSource>();
-
-        audio.clip = clip;
-        audio.Play();
+		if (audio != null) {
+			audio.clip = clip;
+			audio.Play ();
+		}
         switch (type)
         {
             case 1:

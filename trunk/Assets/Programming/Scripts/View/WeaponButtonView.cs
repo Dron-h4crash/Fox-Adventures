@@ -13,12 +13,15 @@ public class WeaponButtonView : MonoBehaviour {
 
     void ShowWeaponIcon(WeaponManager.HeroWeapons weapon)
     {
-        switch (weapon)
-        {
-            case WeaponManager.HeroWeapons.Dubinka: WeaponButton.sprite = IconsDB.GetIcon("Dubinka"); break;
-            case WeaponManager.HeroWeapons.Butulka1: WeaponButton.sprite = IconsDB.GetIcon("Butulka1"); break;
-            case WeaponManager.HeroWeapons.Butulka2: WeaponButton.sprite = IconsDB.GetIcon("Butulka2"); break;
-            case WeaponManager.HeroWeapons.Butulka3: WeaponButton.sprite = IconsDB.GetIcon("Butulka3"); break;
-        }
+		if (WeaponButton != null) {
+			if (weapon == WeaponManager.HeroWeapons.Dubinka && IconsDB.GetIcon ("Dubinka") != null)
+				WeaponButton.sprite = IconsDB.GetIcon ("Dubinka");
+			else if (weapon == WeaponManager.HeroWeapons.Butulka1 && IconsDB.GetIcon ("Butulka1") != null)
+				WeaponButton.sprite = IconsDB.GetIcon ("Butulka1");
+			else if (weapon == WeaponManager.HeroWeapons.Butulka2 && IconsDB.GetIcon ("Butulka2") != null)
+				WeaponButton.sprite = IconsDB.GetIcon ("Butulka2");
+			else if (weapon == WeaponManager.HeroWeapons.Butulka3 && IconsDB.GetIcon ("Butulka3") != null)
+				WeaponButton.sprite = IconsDB.GetIcon ("Butulka3");
+		}
     }
 }

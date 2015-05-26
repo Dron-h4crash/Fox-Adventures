@@ -14,6 +14,8 @@ public class butulkaWeapon2Manager : MonoBehaviour
     public AudioClip clip1;
     public AudioClip clip2;
 
+	AudioSource audio;
+
 	void Start()
 	{
 		_anim = GetComponent<Animator>();
@@ -30,15 +32,16 @@ public class butulkaWeapon2Manager : MonoBehaviour
 		}
 		Bullets.Add(this);
 		gameObject.renderer.enabled = false;
+		audio = GetComponent<AudioSource>();
 	}
     Vector2 tdirection = new Vector2();
     bool one = false;
 	void Fire(Vector2 position, Vector2 direction)
 	{
-        var audio = GetComponent<AudioSource>();
-
-        audio.clip = clip1;
-        audio.Play();
+		if (audio != null) {
+			audio.clip = clip1;
+			audio.Play ();
+		}
         one = true;
 		rigidbody2D.isKinematic = true;
 		transform.position = position;

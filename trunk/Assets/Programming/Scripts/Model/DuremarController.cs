@@ -20,6 +20,12 @@ public class DuremarController : EnemyController
     bool _attack;
     private float _moveX;
 
+
+    void Start()
+    {
+        MainHero = GameObject.FindGameObjectWithTag("MainHero");
+    }
+
     protected override IEnumerator Moving()
     {
         while (Application.isPlaying)
@@ -46,7 +52,8 @@ public class DuremarController : EnemyController
         if (transform.position.x < LeftLimit.transform.position.x) rigidbody2D.velocity = new Vector2(SpeedX, 0f);
         if (transform.position.x > RightLimit.transform.position.x) rigidbody2D.velocity = new Vector2(-SpeedX, 0f);
         base.FixedUpdate();
-        _anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
+        if (_anim != null)
+            _anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
     }
     bool CloseToHero()
     {
