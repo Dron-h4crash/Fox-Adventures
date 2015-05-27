@@ -57,6 +57,17 @@ public class NewBehaviourScript : MonoBehaviour {
         Application.LoadLevel(7);
     }
 
+    public void loadAbout()
+    {
+        Application.LoadLevel(9);
+    }
+
+    public void loadStart()
+    {
+        PlayerPrefs.SetInt("loadingLevel", 3);
+        Application.LoadLevel(0);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
