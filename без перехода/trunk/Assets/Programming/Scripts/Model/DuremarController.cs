@@ -86,7 +86,6 @@ public class DuremarController : EnemyController
     {
 
         yield return new WaitForSeconds(0.5f);
-        int i = Application.loadedLevel;
-        Application.LoadLevel(i + 1);
+        Application.LoadLevel(6);
     }
 }
