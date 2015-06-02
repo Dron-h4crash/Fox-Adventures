@@ -175,9 +175,12 @@ public class HeroController : MonoBehaviour
 			_anim.SetBool("Attack", on);
 			return;
 		}
+        if(!attakBut)
 		StartCoroutine(WeaponAnimate());
 
     }
+
+    bool attakBut = false;
 
 	protected IEnumerator WeaponAnimate()
 	{
@@ -192,14 +195,34 @@ public class HeroController : MonoBehaviour
 
                     audio.clip = dubinka;
                     audio.Play();
+                    attakBut = true;
+                    yield return new WaitForSeconds(0.3f);
+                    attakBut = false;
                     break;
                 }
 			//if (Hit != null) Hit(); break;
 			//case WeaponManager.HeroWeapons.Pistol: if (Fire != null) Fire(HeroBulletSpawn.position, _isFacingRight? WeaponManager.FireDirection.Right: WeaponManager.FireDirection.Left); break;
-			case WeaponManager.HeroWeapons.Butulka1: if (Fire1 != null) Fire1(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 1); break;
-			case WeaponManager.HeroWeapons.Butulka2: if (Fire2 != null) Fire2(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 2); break;
-			case WeaponManager.HeroWeapons.Butulka3: if (Fire3 != null) Fire3(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 3); break;
+            case WeaponManager.HeroWeapons.Butulka1: {
+                if (Fire1 != null && !attakBut) Fire1(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 1);
+                attakBut = true;
+                yield return new WaitForSeconds(0.3f);
+                attakBut = false;
+                break;
+            }
+            case WeaponManager.HeroWeapons.Butulka2: {if (Fire2 != null && !attakBut) Fire2(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 2);
+            attakBut = true;
+            yield return new WaitForSeconds(0.3f);
+            attakBut = false;
+                break;
+            }
+            case WeaponManager.HeroWeapons.Butulka3: {if (Fire3 != null && !attakBut) Fire3(HeroBulletSpawn.position, _isFacingRight ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left, 3);
+            attakBut = true;
+            yield return new WaitForSeconds(0.3f);
+            attakBut = false;
+                break;
+            }
 		}
+
 	}
 
     bool play = false;
