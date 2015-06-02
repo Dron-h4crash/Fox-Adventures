@@ -60,6 +60,10 @@ public class KolobokKontroller : EnemyController
 	void Attack()
 	{
 		_attack = true;
+        if (MainHero.transform.position.x < transform.position.x && _isFacingRight)
+        {
+            Flip();
+        }
         StartCoroutine(ButulkaBrosok());
         //Fire(HeroBulletSpawn.position, rigidbody2D.velocity.x>0) ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left);
         
@@ -70,11 +74,12 @@ public class KolobokKontroller : EnemyController
     protected IEnumerator ButulkaBrosok()
     {
         _anim.SetBool("Attack", true);
-        //rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+       
         yield return new WaitForSeconds(0.3f);
         _anim.SetBool("Attack", false);
         Fire(HeroBulletSpawn.position, _isFacingRight ? Vector2.right : new Vector2(-1, 0));
         yield return new WaitForSeconds(2f);
+
         StopAttack();
     }
 
