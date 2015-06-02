@@ -261,7 +261,7 @@ public class HeroController : MonoBehaviour
 	{
 		_anim.SetBool("Die", true);
 		yield return new WaitForSeconds(0.5f);
-		Application.LoadLevel(10);
+		Application.LoadLevel(11);
 		//Application.LoadLevel("Game Over");
 	}
 
