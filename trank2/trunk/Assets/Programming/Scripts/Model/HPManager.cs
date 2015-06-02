@@ -36,6 +36,7 @@ public class HPManager : MonoBehaviour
             gameObject.SendMessage("RealyDie");
         }
         gameObject.SendMessage("HpChangedMessage", Hp);
+        if (damage>0)
         gameObject.SendMessage("DamageReceived");
     }
 }
