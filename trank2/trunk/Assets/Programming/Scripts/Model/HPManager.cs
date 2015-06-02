@@ -26,6 +26,7 @@ public class HPManager : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         Hp -= damage;
+        if (Hp > 1000) Hp = 1000;
         if (Hp < 0f) 
         { 
             Hp = 0;
