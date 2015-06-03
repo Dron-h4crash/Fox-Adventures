@@ -50,6 +50,13 @@ public class KolobokKontroller : EnemyController
 		
 		if (transform.position.x < LeftLimit.transform.position.x) rigidbody2D.velocity = new Vector2(SpeedX, 0f);
 		if (transform.position.x > RightLimit.transform.position.x) rigidbody2D.velocity = new Vector2(-SpeedX, 0f);
+		if (!_attack)
+		{
+			if (Mathf.Abs(transform.position.x - MainHero.transform.position.x) < 5 && (Mathf.Abs(transform.position.y - MainHero.transform.position.y) < 0.3))
+			{
+				rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
+			}
+		}
 		base.FixedUpdate();
 		_anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
 	}
@@ -78,7 +85,7 @@ public class KolobokKontroller : EnemyController
         yield return new WaitForSeconds(0.3f);
         _anim.SetBool("Attack", false);
         Fire(HeroBulletSpawn.position, _isFacingRight ? Vector2.right : new Vector2(-1, 0));
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         StopAttack();
     }
