@@ -54,9 +54,7 @@ public class EnemyController : MonoBehaviour
         var theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-        var but = gameObject.GetComponentInChildren<kolobokButulkaMemeger>();
-        if (but != null)
-            but.gameObject.SetActive(false);
+       
     }
 
     public virtual void HpChangedMessage(int hp)
