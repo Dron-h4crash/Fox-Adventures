@@ -26,15 +26,19 @@ public class HPManager : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         Hp -= damage;
-		if (Hp > StartHp) Hp = StartHp;
+        if (Hp > StartHp)
+        {
+            Hp = StartHp;
+        }
+
         if (Hp < 0f) 
         { 
             Hp = 0;
             var score = PlayerPrefs.GetInt("CurrentScore");
             score += KillPoint;
             PlayerPrefs.SetInt("CurrentScore", score);
-            gameObject.SendMessage("Die");
             gameObject.SendMessage("RealyDie");
+            gameObject.SendMessage("Die");
         }
         gameObject.SendMessage("HpChangedMessage", Hp);
         if (damage>0)
