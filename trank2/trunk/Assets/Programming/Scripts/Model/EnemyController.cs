@@ -83,7 +83,7 @@ public class EnemyController : MonoBehaviour
     {
         //rigidbody2D.isKinematic = true;
         _anim.SetTrigger("Die");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
         gameObject.SetActive(false);
     }
 
