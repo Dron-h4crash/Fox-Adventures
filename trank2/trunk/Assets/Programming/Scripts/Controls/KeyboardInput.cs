@@ -22,9 +22,9 @@ public class KeyboardInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.A)) && Right != null) Right();
-        if ((Input.GetKeyDown(KeyCode.LeftArrow)|| Input.GetKeyDown(KeyCode.D)) && Left != null) Left();
-		if ((Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) && Stop != null) Stop();
+		if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && Right != null) Right();
+        if ((Input.GetKeyDown(KeyCode.LeftArrow)|| Input.GetKeyDown(KeyCode.A)) && Left != null) Left();
+		if ((Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) && Stop != null) Stop();
 		if ((Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt)) && SelectWeapon != null) SelectWeapon(WeaponManager.HeroWeapons.Dubinka);
         //if (Input.GetKeyDown(KeyCode.Alpha2) && SelectWeapon != null) SelectWeapon(WeaponManager.HeroWeapons.Pistol);
         if (Input.GetKeyDown(KeyCode.Space) && Jump != null) Jump();
