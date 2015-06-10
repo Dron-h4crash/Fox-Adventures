@@ -30,7 +30,7 @@ public class NewBehaviourScript : MonoBehaviour {
     {
         Debug.Log("start game");
         PlayerPrefs.SetInt("CurrentScore", 0);
-        Application.LoadLevel(2);
+        Application.LoadLevel(7);
     }
 
 	public void PlayGameT()
