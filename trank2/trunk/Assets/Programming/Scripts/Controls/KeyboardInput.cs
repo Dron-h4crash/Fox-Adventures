@@ -28,7 +28,6 @@ public class KeyboardInput : MonoBehaviour
 		if ((Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt)) && SelectWeapon != null) SelectWeapon(WeaponManager.HeroWeapons.Dubinka);
         //if (Input.GetKeyDown(KeyCode.Alpha2) && SelectWeapon != null) SelectWeapon(WeaponManager.HeroWeapons.Pistol);
         if (Input.GetKeyDown(KeyCode.Space) && Jump != null) Jump();
-        if ((Input.GetKeyDown(KeyCode.DownArrow)|| Input.GetKeyDown(KeyCode.S)) && Down != null) Down();
         //if (Input.GetKeyUp(KeyCode.DownArrow)) Down(false);
         //if (Input.GetKeyDown(KeyCode.UpArrow)) Up(true);
         //if (Input.GetKeyUp(KeyCode.UpArrow)) Up(false);
