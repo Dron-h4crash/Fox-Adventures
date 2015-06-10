@@ -123,7 +123,7 @@ public class WeaponManager : MonoBehaviour {
         if (Instance != null) { Debug.LogError("Should be only one!"); }
         else Instance = this;
 		GuiActions.NextWeapon += NextWeapon;
-        KeyboardInput.SelectWeapon += (w) => HeroWeapon = w;
+		KeyboardInput.NextWeapon += NextWeapon;
         HeroController.Fire += MainHeroFire;
         HeroController.Fire1 += MainHeroFireBut;
         HeroController.Fire2 += MainHeroFireBut;
