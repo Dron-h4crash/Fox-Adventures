@@ -72,6 +72,10 @@ public class DuremarController : EnemyController
         {
             Flip();
         }
+		if (MainHero.transform.position.x > transform.position.x && !_isFacingRight)
+		{
+			Flip();
+		}
         StartCoroutine(ButulkaBrosok());
         //Fire(HeroBulletSpawn.position, rigidbody2D.velocity.x>0) ? WeaponManager.FireDirection.Right : WeaponManager.FireDirection.Left);
 
