@@ -33,7 +33,7 @@ public class DuremarController : EnemyController
             else
             {
                 rigidbody2D.velocity = new Vector2(0f, 0f);
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0, 3f));
 
             }
         }

@@ -32,7 +32,7 @@ public class KolobokKontroller : EnemyController
 			else 
             {
                 rigidbody2D.velocity = new Vector2(0f, 0f);
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(UnityEngine.Random.Range(0, 3f));
 
             }
 		}
@@ -56,6 +56,8 @@ public class KolobokKontroller : EnemyController
 			{
 				rigidbody2D.velocity = new Vector2(MainHero.transform.position.x > transform.position.x ? SpeedX : -SpeedX, 0);
 			}
+            
+
 		}
 		base.FixedUpdate();
 		_anim.SetFloat("Speed", Mathf.Abs(rigidbody2D.velocity.x));
